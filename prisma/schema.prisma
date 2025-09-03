@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(255)
+  email    String  @unique @db.VarChar(255)
+  password String? @db.VarChar(255)
+  salt     String? @db.VarChar(255)
+}
+
+model item_transactions {
+  id             Int          @id @default(autoincrement())
+  item_id        Int
+  transaction_id Int
+  quantity       Int?         @default(1)
+  created_at     DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime     @default(now()) @db.Timestamptz(6)
+  items          items        @relation(fields: [item_id], references: [id], onDelete: Cascade, map: "item_transaction_item_id_foreign")
+  transactions   transactions @relation(fields: [transaction_id], references: [id], onDelete: Cascade, map: "item_transaction_transaction_id_foreign")
+
+  @@unique([item_id, transaction_id], map: "item_transaction_item_id_transaction_id_unique")
+}
+
+model items {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(255)
+  product_id        Int
+  item_transactions item_transactions[]
+  products          products            @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "items_product_id_foreign")
+}
+
+model products {
+  id         Int     @id @default(autoincrement())
+  name       String  @db.VarChar(255)
+  is_deleted Int?    @default(0) @db.SmallInt
+  items      items[]
+}
+
+model transactions {
+  id                Int                 @id @default(autoincrement())
+  description       String              @db.VarChar(255)
+  date              DateTime            @default(now()) @db.Timestamptz(6)
+  created_at        DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime            @default(now()) @db.Timestamptz(6)
+  item_transactions item_transactions[]
+}

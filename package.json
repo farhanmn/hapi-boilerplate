@@ -1,0 +1,30 @@
+{
+  "name": "hapi-test",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hapi/hapi": "^21.4.3",
+    "@hapi/jwt": "^3.2.1",
+    "@prisma/client": "^6.15.0",
+    "amqplib": "^0.10.9",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.15.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
