@@ -1,16 +1,15 @@
-import { Prisma, PrismaClient } from '../generated/prisma/client';
-import { GetUserResponse } from "../types/user.type";
-import { Metadata } from "../types/common.type";
-import { verifyPassword } from "../helpers/auth.helper";
-import {hash} from "../helpers/crypto.helper";
+import { PrismaClient } from '../generated/prisma/client';
+import { jwtSign, verifyPassword } from "../helpers/auth.helper";
+import { LoginResponse } from "../types/auth.type";
+import {ErrorResponse} from "../types/common.type";
 
 const prisma = new PrismaClient();
 
 export const authService = {
-  userCheck: async (
+  login: async (
     email: string,
     password: string,
-  ) => {
+  ): Promise<LoginResponse | ErrorResponse> => {
     const user = await prisma.users.findFirst({
       where: {
         email,
@@ -33,6 +32,13 @@ export const authService = {
       }
     }
 
-    // cont.
+    const token: string = jwtSign(verifyPass);
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      token
+    };
   }
 }
