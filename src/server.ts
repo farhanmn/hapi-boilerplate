@@ -1,6 +1,7 @@
 import Hapi from '@hapi/hapi';
-import { userRoutes } from './routes/user.routes';
 import { startConsumer } from "./rabbit/consumer";
+import { userRoutes } from './routes/user.routes';
+import { authRoutes } from "./routes/auth.routes";
 
 const init = async () => {
   const server = Hapi.server({
@@ -19,6 +20,7 @@ const init = async () => {
   ])
 
   server.route(userRoutes);
+  server.route(authRoutes);
 
   await startConsumer('user-created')
 

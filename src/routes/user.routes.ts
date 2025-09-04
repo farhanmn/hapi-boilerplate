@@ -1,6 +1,7 @@
-import { userController } from '../controllers/user.controller';
 import { ServerRoute } from '@hapi/hapi';
 import Joi from 'joi';
+import { userController } from '../controllers/user.controller';
+import { createError } from "../helpers/error.helper";
 
 export const userRoutes: ServerRoute[] = [
   {
@@ -11,20 +12,7 @@ export const userRoutes: ServerRoute[] = [
         query: Joi.object({
           name: Joi.string().required(),
         }),
-        failAction: (request, h, error) => {
-          const validationError = error as Joi.ValidationError;
-          return h.response({
-            statusCode: 400,
-            error: 'Bad Request',
-            message: 'Validation Error',
-            details: validationError.details.map((detail) => ({
-              field: detail.path.join('.'),
-              message: detail.message
-            }))
-          })
-            .code(400)
-            .takeover()
-        }
+        failAction: createError
       }
     },
     handler: userController.getUser
