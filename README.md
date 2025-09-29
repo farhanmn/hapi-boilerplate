@@ -47,3 +47,5 @@ $ npm start
 - [Prisma ORM](https://www.prisma.io/) - a next-generation object–relational mapper (ORM) that claims to help developers build faster and make fewer errors
 - [JWT](https://jwt.io/) - A compact URL-safe means of representing claims to be transferred between two parties
 - [ESLint](https://eslint.org/) - ESLint statically analyzes your code to quickly find problems. It is built into most text editors and you can run ESLint as part of your continuous integration pipeline
+- [RabbitMQ](https://www.rabbitmq.com/) - A powerful, enterprise grade open source messaging and streaming broker that enables efficient , reliable and versatile communication for applications — perfect for distributed microservices, real-time data, and IoT
+- [Redis](https://redis.io/) - The Real-time Data Platform

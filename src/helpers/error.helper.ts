@@ -1,4 +1,3 @@
-// helpers/createError.ts
 import type { ValidationError } from 'joi';
 import type {Request, ReqRefDefaults, ResponseToolkit} from '@hapi/hapi';
 

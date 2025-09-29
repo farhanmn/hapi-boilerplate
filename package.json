@@ -15,6 +15,7 @@
     "@hapi/jwt": "^3.2.1",
     "@prisma/client": "^6.15.0",
     "amqplib": "^0.10.9",
+    "ioredis": "^5.7.0",
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.15.0"

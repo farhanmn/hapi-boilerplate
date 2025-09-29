@@ -5,7 +5,7 @@ import { Metadata } from "../types/common.type";
 const prisma = new PrismaClient();
 
 export const userService = {
-  getUser: async (
+  getUsers: async (
     name?: string,
     page: number = 1,
     limit: number = 10
@@ -42,5 +42,25 @@ export const userService = {
         limit,
       }
     }
+  },
+  getUser: async (
+    id: number
+  ): Promise<GetUserResponse | undefined> => {
+    const user = await prisma.users.findUnique({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+      where: {
+        id
+      }
+    });
+
+    if (!user) {
+      return undefined;
+    }
+
+    return user;
   }
 }
