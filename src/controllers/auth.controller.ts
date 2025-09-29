@@ -15,6 +15,5 @@ export const authController = {
     }
 
     return h.response(login).code(200);
-
   }
 };

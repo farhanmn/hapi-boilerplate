@@ -15,6 +15,22 @@ export const userRoutes: ServerRoute[] = [
         failAction: createError
       }
     },
-    handler: userController.getUser
+    handler: userController.getUsers
+  },
+  {
+    method: 'GET',
+    path: '/users/:id',
+    options: {
+      validate: {
+        params: Joi.object({
+          id: Joi.number()
+            .integer()
+            .positive()
+            .required(),
+        }),
+        failAction: createError
+      }
+    },
+    handler: userController.getUserById
   }
 ];
