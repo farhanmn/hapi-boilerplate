@@ -1,18 +1,19 @@
 import { Request, ResponseToolkit } from '@hapi/hapi';
-import { generateToken } from '../helpers/auth.helper';
+import { authService } from "../services/auth.service";
 
 export const authController = {
   login: async (request: Request, h: ResponseToolkit) => {
-    const { username, password } = request.payload as {
-      username: string;
+    const { email, password } = request.payload as {
+      email: string;
       password: string;
     };
 
-    if (username === 'admin' && password === 'password') {
-      const token = generateToken({ userId: 1, username });
-      return h.response({ token });
+    const login = await authService.login(email, password);
+
+    if (!login) {
+      return h.response({ error: 'Invalid credentials' }).code(401);
     }
 
-    return h.response({ error: 'Invalid credentials' }).code(401);
+    return h.response(login).code(200);
   }
 };

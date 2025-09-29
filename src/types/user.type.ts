@@ -12,13 +12,7 @@ interface GetUserResponse {
   email: string;
 }
 
-interface LoginRequest {
-  email: string;
-  password: string;
-}
-
 export {
   User,
-  GetUserResponse,
-  LoginRequest
+  GetUserResponse
 }

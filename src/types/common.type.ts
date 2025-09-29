@@ -4,6 +4,12 @@ interface Metadata {
   limit: number;
 }
 
+interface ErrorResponse {
+  status: number;
+  message: string;
+}
+
 export {
   Metadata,
+  ErrorResponse
 }

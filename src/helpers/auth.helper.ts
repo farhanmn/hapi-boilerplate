@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
-import { LoginRequest, User } from "../types/user.type";
+import { User } from "../types/user.type";
+import { LoginRequest } from "../types/auth.type";
 import { match } from "./crypto.helper";
+import {VerificationUser} from "../types/auth.type";
 
 const SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -13,7 +15,7 @@ export const generateToken = (payload: object): string => {
 export const verifyPassword = (
   userData: User,
   loginData: LoginRequest
-) => {
+): VerificationUser | null => {
   if (!userData) {
     return null;
   }
@@ -28,3 +30,9 @@ export const verifyPassword = (
   }
   return null;
 };
+
+export const jwtSign = (
+  user: VerificationUser
+) => {
+  return jwt.sign(user, SECRET);
+}
